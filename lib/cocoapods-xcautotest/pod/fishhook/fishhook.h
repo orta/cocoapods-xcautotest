@@ -1,31 +1,3 @@
-Copyright (c) 2016 Orta Therox <orta.therox@gmail.com>
-
-MIT License
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-This library also vends Facebook's Fishhook - this is it's license, it is also included
-in `lib/pod/fishhook`.
-
-From commit https://github.com/facebook/fishhook/commit/3958ea38abe787a7dba9f3ed17099f4bfa02cf5a
-
 // Copyright (c) 2013, Facebook, Inc.
 // All rights reserved.
 // Redistribution and use in source and binary forms, with or without
@@ -48,3 +20,49 @@ From commit https://github.com/facebook/fishhook/commit/3958ea38abe787a7dba9f3ed
 // CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#ifndef fishhook_h
+#define fishhook_h
+
+#include <stddef.h>
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif //__cplusplus
+
+/*
+ * A structure representing a particular intended rebinding from a symbol
+ * name to its replacement
+ */
+struct rebinding {
+  const char *name;
+  void *replacement;
+  void **replaced;
+};
+
+/*
+ * For each rebinding in rebindings, rebinds references to external, indirect
+ * symbols with the specified name to instead point at replacement for each
+ * image in the calling process as well as for all future images that are loaded
+ * by the process. If rebind_functions is called more than once, the symbols to
+ * rebind are added to the existing list of rebindings, and if a given symbol
+ * is rebound more than once, the later rebinding will take precedence.
+ */
+int rebind_symbols(struct rebinding rebindings[], size_t rebindings_nel);
+
+/*
+ * Rebinds as above, but only in the specified image. The header should point
+ * to the mach-o header, the slide should be the slide offset. Others as above.
+ */
+int rebind_symbols_image(void *header,
+                         intptr_t slide,
+                         struct rebinding rebindings[],
+                         size_t rebindings_nel);
+
+#ifdef __cplusplus
+}
+#endif //__cplusplus
+
+#endif //fishhook_h
+
