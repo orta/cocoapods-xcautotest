@@ -1,3 +1,4 @@
+#import "XCAutoTest.h"
 #import "fishhook.h"
 #import <dlfcn.h>
 
@@ -8,20 +9,23 @@ static BOOL connectToAutoServer = YES;
 
 // Our replacement Exit which starts looking to see if the server is active.
 int xc_auto_exit(int code) {
+#ifdef DEBUG
+
     /// Start up the server
     XCAutoTest *autoTest = [[XCAutoTest alloc] init];
     [autoTest connect];
 
     /// Keep this thread alive, until `connectToAutoServer` becomes `NO`
     [autoTest startRunloop];
+#endif
 }
 
 @implementation XCAutoTest
 #ifdef DEBUG
 
-/// On testing launch, in DEBUG mode, hook in our testing infrastructure 
+/// As the class heirarchy is being set up, in DEBUG mode, hook in our testing infrastructure 
 
-+ (void)initialize
++ (void)load
 {
     static dispatch_once_t pred;
     dispatch_once(&pred, ^{
@@ -40,7 +44,7 @@ int xc_auto_exit(int code) {
     while (connectToAutoServer && [runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
     
     // Pass through to the original exit function 
-    orig_exit(code);
+    orig_exit(1);
 }
 
 - (void)connect
