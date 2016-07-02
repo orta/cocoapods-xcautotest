@@ -1,2 +1,2 @@
 require 'cocoapods-xcautotest/command'
-require 'installer/installer'
+require 'cocoapods-xcautotest/installer/installer'
