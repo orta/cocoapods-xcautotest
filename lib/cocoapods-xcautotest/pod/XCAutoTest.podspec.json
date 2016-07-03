@@ -16,6 +16,7 @@
     "tag": "23"
   },
   "source_files": ["*.{h,m}", "fishhook/*.{h,c}"],
+  "resources": "*.js",
   "frameworks": "Foundation",
   "requires_arc": true
 }
