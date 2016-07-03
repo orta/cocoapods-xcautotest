@@ -37,7 +37,6 @@
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {
-    NSLog(@"Got Message %@", message.body);
     self.connecting = false;
 
     BOOL connected = [message.body[@"connected"] boolValue];

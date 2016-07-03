@@ -58,7 +58,7 @@ int xc_auto_exit(int code) {
         _sharedController = [[XCAutoTest alloc] init];
 
         /// Wait until the app is ready to go before starting to work with
-        /// any of the web socket work.
+        /// any of the web socket work, just feels better than doing it in here.
         [[NSNotificationCenter defaultCenter] addObserver:_sharedController
                                                   selector:@selector(connect)
                                                       name:UIApplicationDidBecomeActiveNotification object:nil];
