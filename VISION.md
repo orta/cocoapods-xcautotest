@@ -1,4 +1,4 @@
-### Testing can get harder to do as you get grow. 
+### Testing can get harder to do as you grow. 
 
 This project aims to address that flaw, by using the Objective-C runtime in your favour. It's inspired by the idea that code can be injected at runtime, and you can iterate significantly faster inside your application.
 
