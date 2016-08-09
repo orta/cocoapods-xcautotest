@@ -2,11 +2,11 @@
 
 This project aims to address that flaw, by using the Objective-C runtime in your favour. It's inspired by the idea that code can be injected at runtime, and you can iterate significantly faster inside your application.
 
-### v1.0.0
+## v1.0.0
 
 Version one should be able to have a command line app, that would compile new tests as they are saved and run them into the long-running `XCTest` runner.
 
-### v2.0.0
+## v2.0.0
 
 Version two should build off the infrastructure that Facebook has been building [around multi-sim](https://github.com/facebook/FBSimulatorControl#fbsimulatorcontrol). This means that the server can run it's own headless simulator. So you can constantly have tests running when they're saved.
 
