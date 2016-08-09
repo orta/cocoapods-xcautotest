@@ -23,12 +23,10 @@ module CocoaPodsXCAutoTest
 
         auto_target_names.each do |auto_target_name|
           pod_target = podfile.target_definition_list.find do |target|
-              target.label == "Pods-#{auto_target_name}"
+            target.label == "Pods-#{auto_target_name}"
           end
 
-          if pod_target
-            pod_target.store_pod 'XCAutoTest', :path => pod_path.to_path
-          end
+          pod_target.store_pod('XCAutoTest', path: pod_path.to_path) if pod_target
         end
       end
     end
