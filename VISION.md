@@ -17,3 +17,9 @@ Version three should ideally look at being able to inject application changes as
 Until now, there is an assumption that you are only changing your test suite, but real-world usage is that you would also want to trigger related tests when you press save on any source file.
 
 This would effectively mean replicating all of Injection for Xcode, and is not something I'd take lightly.
+
+## Notes
+
+Ideally at some point, we can move this off the CocoaPods Plugin infrastructure. This infrastructure is in place so that we can execute code on both the host OS, and the sim.
+
+Injection for Xcode works around this problem by being an Xcode plugin. I'm not sure that's tenable on the long term. So this project will always be looking for ways in which we can work around this. [Smuggler](https://github.com/johnno1962/Smuggler) looks the most feasible alternative.
