@@ -43,6 +43,8 @@ Start up the server:
 
 To understand the principals of this project - you should be familiar with how [Injection for Xcode works](http://artsy.github.io/blog/2016/06/29/code-spelunking-injection/). If you want the history on the project, look at [this issue](https://github.com/artsy/mobile/issues/26).
 
+Then it'd be a good idea to have a brief look over the [VISION.md](VISION.md) to grok the overall plan.
+
 To get started, clone the repo, install the deps, and run the tests.
 
 ```ruby
