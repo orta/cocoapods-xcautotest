@@ -32,10 +32,37 @@ The library's job is to see if the server is running at the end of an XCTest run
 
 I'm still thinking a bit about how this can be done independent of your entire team. For now, I will be using the CocoaPods plugin infrastructure. If this is a blocker, I'm interested in ways to improve it.
 
-Add the gem to your `Gemfile`, and add `plugin 'xcautotest'` to your `Podfile`.
+Add the gem to your `Gemfile`, and add `plugin 'cocoapods-xcautotest'` to your `Podfile`.
 
 Start up the server:
 
     $ bundle exec pod xcautotest
 
 
+## Hacking on the project
+
+To understand the principals of this project - you should be familiar with how [Injection for Xcode works](http://artsy.github.io/blog/2016/06/29/code-spelunking-injection/).
+
+To get started, clone the repo, install the deps, and run the tests.
+
+```ruby
+git clone https://github.com/orta/cocoapods-xcautotest.git
+cd cocoapods-xcautotest
+bundle
+bundle exec rake
+```
+
+This gets you fully set up, however, you're going to want to have this working inside an iOS project to true make changes. So you'll need to use [a Gemfile](https://guides.cocoapods.org/using/a-gemfile.html) on that project. Your Gemfile should look somewhat like:
+
+``` ruby
+gem "cocoapods", "~> 1.0"
+gem "cocoapods-xcautotest", path: "/path/to/where/this/is/cloned"
+```
+
+Then include the plugin reference in your `Podfile`:
+
+``` ruby
+plugin "cocoapods-xcautotest"
+```
+
+Then whenever you `bundle exec pod install` it will use your development version of xcautotest. 
